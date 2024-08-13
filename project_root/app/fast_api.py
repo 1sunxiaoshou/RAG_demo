@@ -22,9 +22,9 @@ async def chat_file(question: str = Query(None), file: UploadFile = File(None)):
         file_name = file.filename
         with open(file_name, "wb") as f:
             f.write(contents)
-        data = {"question": question+'使用tools', "filename": file_name}
+        data = {"question": question, "filename": file_name}
     else:
-        data = {"question": question+'使用tools'}
+        data = {"question": question}
     print(data)
 
     res = chat_rag.chat(**data)
@@ -46,4 +46,4 @@ async def vector(file: UploadFile = File(None)):
 if __name__ == '__main__':
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=5001)
+    uvicorn.run(app, host="127.0.0.1", port=5002)

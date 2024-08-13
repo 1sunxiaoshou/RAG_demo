@@ -13,9 +13,9 @@ from pydantic.v1 import BaseModel, Field
 from base_node import get_knowledge_type, vector_storage, retrieve, file_out, grade_documents, generation, \
     rewrite_question, route_node, grade_generation, hallucinations_generate, end_answer
 
-load_dotenv()
-api_key = os.getenv('API_KEY')
-base_url = os.getenv('BASE_URL')
+_ = load_dotenv()
+# api_key = os.getenv('API_KEY')
+# base_url = os.getenv('BASE_URL')
 
 
 class CreateLanggraphState(TypedDict):
@@ -58,7 +58,7 @@ class createGraph(BaseTool):
         workflow.add_edge("retrieve", "grade_documents")
         workflow.add_conditional_edges("grade_documents", grade_generation,
                                        {"generation": "generation", "rewrite_question": "rewrite_question",
-                                        "file_out": "file_out"})
+                                        "file_out": "file_out","end_answer":"end_answer"})
         workflow.add_conditional_edges("generation", hallucinations_generate,
                                        {"generation": "generation", "rewrite_question": "rewrite_question",
                                         "end_answer": "end_answer",
@@ -112,8 +112,6 @@ class CreateLLMCustomerService(object):
     def __init__(self):
 
         self.llm = ChatOpenAI(
-            api_key=api_key,
-            base_url=base_url,
             model="moonshot-v1-8k"
         )
 

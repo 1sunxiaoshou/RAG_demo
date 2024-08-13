@@ -7,11 +7,11 @@ def predict(message, history, file):
     if file:
         # 如果有文件，使用multipart/form-data发送
         files = {'file': open(file, 'rb')}
-        response = requests.post('http://127.0.0.1:5001/chat_file?question=' + message, files=files)
+        response = requests.post('http://127.0.0.1:5002/chat_file?question=' + message, files=files)
         response_json = response.json()
     else:
         # 否则，使用JSON发送问题
-        response = requests.post('http://127.0.0.1:5001/chat_file?question=' + message)
+        response = requests.post('http://127.0.0.1:5002/chat_file?question=' + message)
         response_json = response.json()
 
     # 确保文件被关闭
@@ -25,7 +25,7 @@ def vector_interface(file=None):
     headers = {"Content-Type": "multipart/form-data"}
     if file:
         files = {'file': open(file.name, 'rb')}
-        response = requests.post('http://127.0.0.1:5001/vector', files=files)
+        response = requests.post('http://127.0.0.1:5002/vector', files=files)
         response_json = response.json()
         files['file'].close()  # 确保文件被关闭
     else:

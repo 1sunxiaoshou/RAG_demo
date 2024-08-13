@@ -79,6 +79,7 @@ def generation(state):
 def rewrite_question(state):
     question = state["question"]
     rewrite_question = tools.rewrite_question(question)
+    print('覆写问题')
     return {"question": rewrite_question}
 
 
