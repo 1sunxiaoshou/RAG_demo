@@ -14,9 +14,6 @@ from base_node import get_knowledge_type, vector_storage, retrieve, file_out, gr
     rewrite_question, route_node, grade_generation, hallucinations_generate, end_answer
 
 _ = load_dotenv()
-# api_key = os.getenv('API_KEY')
-# base_url = os.getenv('BASE_URL')
-
 
 class CreateLanggraphState(TypedDict):
     question: str
